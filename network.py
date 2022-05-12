@@ -53,7 +53,7 @@ if __name__ == '__main__':
     plot_network_development(
         network,
         6,
-        "async",
+        "sync",
         pig,
         "test.pdf"
     )

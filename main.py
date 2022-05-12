@@ -26,17 +26,12 @@ def result_to_png(result):
 
 
 
-timer = process_time()
 
-### Hopfield Modells mit 10000 Neuronen: Bilder bekannter Physiker
-print("4.0 Test des Hopfield Modells")
-print("Hopfield Modells mit 10000 Neuronen: Bilder bekannter Physiker")
-# Lade Bilder bekannter Physiker als NumPy array
 N = 100 ** 2
 path_list = [
     os.path.join(".\\animals", f)
     for f in [
-        # "guinea.jpg",
+        #"guinea.jpg",
         "hedgehog.jpg",
         "racoon.png"
     ]
@@ -44,21 +39,9 @@ path_list = [
 
 xi = images2xi(path_list, N)
 
-# Speichere/Trainiere Bilder bekannter Physiker im Netzwerk
 hopfield_network = HopfieldNetwork(N=N)
 hopfield_network.train_pattern(xi)
 
-
-## Test: Bildrekonstruktion aus verrauschtem Bild
-# Setze 'verrauschten' Hilbert als Startkonfiguartion
-# hilbert = np.copy(xi[:, 0])
-# faded_hilbert = np.copy(xi[:, 0])
-# faded_hilbert[np.random.choice(N, int(N / 4))] *= -1
-# hopfield_network.set_initial_neurons_state(np.copy(faded_hilbert))
-# # Plotte Neuronenkonfiguartion fuer 3 Zeitschritte
-# plot_network_development(
-#     hopfield_network, 3, "async", hilbert, "reconstruct.pdf"
-# )
 
 hedgehog_drawing = image2numpy_array(".\\animals_predict\\hedgehog1.PNG", (100, 100)).flatten()
 hopfield_network.set_initial_neurons_state(np.copy(hedgehog_drawing))
@@ -81,5 +64,3 @@ plot_network_development(
 )
 result_to_png(hopfield_network.S).save("hedgehog2_res.png")
 
-
-print("\nProcess time: {:.3f} s".format(process_time() - timer))
